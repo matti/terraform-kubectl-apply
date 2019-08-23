@@ -13,7 +13,7 @@ resource "null_resource" "default" {
     environment = {
       KUBECONFIG = var.kubeconfig
     }
-    command = "kubectl apply -f - ${templatefile(var.path, var.variables)}"
+    command = "echo ${templatefile(var.path, var.variables)} | kubectl apply -f -"
   }
 
   provisioner "local-exec" {
