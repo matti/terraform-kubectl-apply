@@ -18,6 +18,7 @@ resource "null_resource" "default" {
     environment = {
       KUBECONFIG = var.kubeconfig
     }
-    command = "kubectl delete -f ${var.path}"
+    command    = "kubectl delete -f ${var.path}"
+    on_failure = "continue"
   }
 }
