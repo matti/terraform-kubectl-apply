@@ -1,5 +1,8 @@
 variable "path" {}
 variable "kubeconfig" {}
+variable "variables" {
+  default = {}
+}
 
 resource "null_resource" "default" {
   triggers = {
@@ -10,7 +13,7 @@ resource "null_resource" "default" {
     environment = {
       KUBECONFIG = var.kubeconfig
     }
-    command = "kubectl apply -f ${var.path}"
+    command = "kubectl apply -f - ${templatefile(var.path, var.variables)}"
   }
 
   provisioner "local-exec" {
